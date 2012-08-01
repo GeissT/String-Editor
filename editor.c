@@ -75,8 +75,7 @@ char *do_edit(char *source, char command)
 			int n,i;
 			char *p;
 			scanf("%d",&n);
-			p=source;
-			p+=strlen(source);
+			p=source+strlen(source);
 			for(i=0;i<=n;i++)
 			{
 				*p=(char) 0;

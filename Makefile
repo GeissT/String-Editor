@@ -1,7 +1,10 @@
+CC=gcc
+CFLAGS=-o editor editor.c -O2
+
 all:editor
 
 editor:editor.c
-	$(CC) -o editor editor.c -O2
+	$(CC) $(CFLAGS)
 
 install:
 	cp ./editor /usr/local/bin/editor
