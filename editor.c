@@ -76,6 +76,11 @@ char *do_edit(char *source, char command)
 		scanf("%d", &index);
 		insert(source, str, index);
 		break;
+	case 'A':
+		printf("String to append: \n");
+		gets(str);
+		strcat(source,str);
+		break;
 	case 'F':
 		printf("String to find: \n");
 		gets(str);
@@ -99,7 +104,7 @@ char get_command(void)
 {
 	char command, ignore;
 
-	printf("Enter (D)elete, (I)nsert, (F)ind or (Q)uit: ");
+	printf("Enter (D)elete, (I)nsert, (A)ppend, (F)ind or (Q)uit: ");
 	scanf(" %c", &command);
 
 	do
