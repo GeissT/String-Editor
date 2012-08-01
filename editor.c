@@ -69,6 +69,21 @@ char *do_edit(char *source, char command)
 		else
 			delete(source, index, strlen(str));
 		break;
+	case 'B':
+		printf("How many backspaces do you want? \n");
+		{
+			int n,i;
+			char *p;
+			scanf("%d",&n);
+			p=source;
+			p+=strlen(source);
+			for(i=0;i<=n;i++)
+			{
+				*p=(char) 0;
+				p--;
+			}
+		}
+		break;
 	case 'I':
 		printf("String to insert: \n");
 		gets(str);
@@ -104,7 +119,7 @@ char get_command(void)
 {
 	char command, ignore;
 
-	printf("Enter (D)elete, (I)nsert, (A)ppend, (F)ind or (Q)uit: ");
+	printf("Enter (D)elete, (B)ackspace, (I)nsert, (A)ppend, (F)ind or (Q)uit: ");
 	scanf(" %c", &command);
 
 	do
