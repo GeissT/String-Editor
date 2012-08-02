@@ -22,7 +22,7 @@ int main(void)
 {
 	char *command,*source;
 	source=memory[high];
-	printf("Enter the source string: \n");
+	printf("Enter the first line: \n");
 	gets(source);
 	printf("\e[1;31mWarning:\nCommand should start with \"^\",or we will use the method \"append\".\e[m \n");
 
@@ -36,7 +36,7 @@ int main(void)
 			if(command[1]=='N'||command[1]=='L') source=memory[high];
 		}
 		
-		printf("New source: %s\n\n", source);
+		printf("This line: %s\n\n", source);
 	}
 
 	{
@@ -118,6 +118,14 @@ char *do_edit(char *source, char command)
 		gets(str);
 		strcat(source,str);
 		break;
+	case 'S':
+		{
+			printf("\n\e[1;31mStart:\e[m\n");
+			int i;
+			for(i=0;memory[i][0];i++) printf("%s\n",memory[i]);
+			printf("\e[1;31mEnd.\e[m\n");
+		}
+		break;
 	case 'F':
 		printf("String to find: \n");
 		gets(str);
@@ -141,7 +149,7 @@ char* get_command(void)
 {
 	static char command[MAX_LEN];
 
-	printf("Methods:(N)ext, (L)ast, (D)elete, (B)ackspace, (I)nsert, (A)ppend, (F)ind or (Q)uit: ");
+	printf("Methods:(N)ext, (L)ast, (D)elete, (B)ackspace, (I)nsert, (A)ppend, (F)ind, (S)how All or (Q)uit: ");
 	gets(command);
 	if (command[0]=='^') command[1]=toupper(command[1]);
 	return(command);
