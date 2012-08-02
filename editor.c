@@ -24,7 +24,7 @@ int main(void)
 	source=memory[high];
 	printf("Enter the source string: \n");
 	gets(source);
-	printf("\nWarning:\nCommand should start with \"^\",or we will use the method \"append\".\n");
+	printf("\e[1;31mWarning:\nCommand should start with \"^\",or we will use the method \"append\".\e[m \n");
 
 	for (command = get_command(); (command[0]=='^' && command[1]!='Q')||(command[0]!='^'); command = get_command()) {
 		
