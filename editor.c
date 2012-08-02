@@ -6,27 +6,44 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAX_LEN    100
+#define HIGHTH     30000
+#define MAX_LEN    300
 #define NOT_FOUND -1
 
 char *delete(char *source, int index, int n);
 char *do_edit(char *source, char command);
-char get_command(void);
+char* get_command(void);
 char *insert(char *source, const char *to_insert, int index);
 int  pos(const char *source, const char *to_find);
 
+char memory[HIGHTH][MAX_LEN],high=0;
+
 int main(void)
 {
-	char source[MAX_LEN], command;
+	char *command,*source;
+	source=memory[high];
 	printf("Enter the source string: \n");
 	gets(source);
+	printf("Command should start with \"^\",or we will use the method \"append\".\n");
 
-	for (command = get_command(); command != 'Q'; command = get_command()) {
-		do_edit(source, command);
+	for (command = get_command(); (command[0]=='^' && command[1]!='Q')||(command[0]!='^'); command = get_command()) {
+		
+		if(command[0]!='^')
+			strcat(source,command);
+		else
+		{
+			do_edit(source, command[1]);
+			if(command[1]=='N'||command[1]=='L') source=memory[high];
+		}
+		
 		printf("New source: %s\n\n", source);
 	}
 
-	printf("String after editing: %s\n", source);
+	{
+		int i;
+		for(i=0;i<MAX_LEN;i++) printf("%s\n",memory[i]);
+	}
+	
 	return(0);
 }
 
@@ -60,6 +77,12 @@ char *do_edit(char *source, char command)
 	int index;
 
 	switch(command) {
+	case 'N':
+		high++;
+		break;
+	case 'L':
+		high--;
+		break;
 	case 'D':
 		printf("String to delete: \n");
 		gets(str);
@@ -114,18 +137,14 @@ char *do_edit(char *source, char command)
  * ----------------
  * Listens for commands and interprets them
  */
-char get_command(void)
+char* get_command(void)
 {
-	char command, ignore;
+	static char command[MAX_LEN];
 
-	printf("Enter (D)elete, (B)ackspace, (I)nsert, (A)ppend, (F)ind or (Q)uit: ");
-	scanf(" %c", &command);
-
-	do
-		ignore = getchar();
-	while(ignore != '\n');
-
-	return(toupper(command));
+	printf("Methods:(N)ext, (L)ast, (D)elete, (B)ackspace, (I)nsert, (A)ppend, (F)ind or (Q)uit: ");
+	gets(command);
+	if (command[0]=='^') command[1]=toupper(command[1]);
+	return(command);
 }
 
 /* Insert Function
