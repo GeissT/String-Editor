@@ -24,11 +24,11 @@ int main(void)
 	source=memory[high];
 	printf("Enter the first line: \n");
 	gets(source);
-	printf("\e[1;31mWarning:\nCommand should start with \"^\",or we will use the method \"append\".\e[m \n");
+	printf("\e[1;31mWarning:\nCommand should start with \"`\",or we will use the method \"append\".\e[m \n");
 
-	for (command = get_command(); (command[0]=='^' && command[1]!='Q')||(command[0]!='^'); command = get_command()) {
+	for (command = get_command(); (command[0]=='`' && command[1]!='Q')||(command[0]!='`'); command = get_command()) {
 		
-		if(command[0]!='^')
+		if(command[0]!='`')
 			strcat(source,command);
 		else
 		{
@@ -151,7 +151,7 @@ char* get_command(void)
 
 	printf("Methods:(N)ext, (L)ast, (D)elete, (B)ackspace, (I)nsert, (A)ppend, (F)ind, (S)how All or (Q)uit: ");
 	gets(command);
-	if (command[0]=='^') command[1]=toupper(command[1]);
+	if (command[0]=='`') command[1]=toupper(command[1]);
 	return(command);
 }
 
